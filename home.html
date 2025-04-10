@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Турнір з CS2</title>
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@700&family=Montserrat:wght@500&family=IBM+Plex+Sans&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Lato:100&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --main-bg-color: #D9D9D9;
+      --text-color: #000000;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--main-bg-color);
+      color: var(--text-color);
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 25px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    header, .footer-menu {
+      background-color: #000000;
+      padding: 1rem 5rem;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    nav {
+      display: flex;
+      gap: 2.5rem;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 20px;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background-color: #fff;
+      transition: width 0.3s ease-in-out;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .logo {
+      position: absolute;
+      right: 2rem;
+      width: 40px;
+      height: 40px;
+    }
+
+    .fullscreen-image {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      background: url('image/font.jpg') no-repeat center center/cover;
+      mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+    }
+
+    .hero-button-container {
+      position: absolute;
+      bottom: 130px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .join-btn {
+      width: 300px;
+      height: 80px;
+      cursor: pointer;
+      background: transparent;
+      border: 2px solid #fff;
+      outline: none;
+      position: relative;
+      font-family: 'Lato', sans-serif;
+      font-size: 26px;
+      font-weight: 100;
+      color: white;
+      z-index: 1;
+      overflow: hidden;
+      border-radius: 15px;
+    }
+
+    .join-btn span {
+      position: relative;
+      z-index: 2;
+    }
+
+    .join-btn svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      fill: none;
+      stroke: #fff;
+      stroke-width: 3;
+      stroke-dasharray: 400 1200;
+      stroke-dashoffset: 400;
+      transition: stroke-dashoffset 1s ease-in-out;
+      width: 100%;
+      height: 100%;
+      border-radius: 15px;
+    }
+
+    .join-btn:hover {
+      background-color: #505050;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    .join-btn:hover svg {
+      stroke-dashoffset: -1200;
+    }
+
+    main {
+      padding: 3rem 2rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    h1, h2 {
+      font-family: 'Ubuntu', sans-serif;
+      font-size: 45px;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    p, li {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 25px;
+      margin-bottom: 1rem;
+    }
+
+    ul {
+      padding-left: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .register-section {
+      display: flex;
+      gap: 3rem;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 5rem;
+      flex-wrap: wrap;
+    }
+
+    .register-section img {
+      width: 400px;
+      border-radius: 20px;
+    }
+
+    .register-text {
+      max-width: 600px;
+    }
+
+    .news-title {
+      margin-bottom: 2.5rem;
+    }
+
+    section.stream {
+      background-color: #BFBFBF;
+      padding: 2rem;
+      border-radius: 8px;
+      margin-bottom: 4rem;
+    }
+
+    footer {
+      background-color: #000;
+      color: #fff;
+      padding: 3rem 2rem 6rem;
+      position: relative;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+      gap: 2rem;
+    }
+
+    .footer-links a {
+      display: block;
+      color: #ccc;
+      margin-top: 0.5rem;
+      text-decoration: underline;
+      word-break: break-word;
+    }
+
+    .footer-links h2 {
+      font-size: 22px;
+      margin-bottom: 0.5rem;
+    }
+
+    .icon-footer {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      width: 50px;
+      height: 50px;
+    }
+
+    .icon-footer img {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Верхнее меню -->
+  <header>
+    <div class="nav-center">
+      <nav>
+        <a href="home.html">Головна</a>
+        <a href="net.html">Турнірна сітка</a>
+        <a href="register.html">Реєстрація на турнір</a>
+        <a href="info.html">Правила турніру</a>
+      </nav>
+    </div>
+    <img src="image/icon.png" alt="Логотип" class="logo">
+  </header>
+
+  <div class="fullscreen-image" id="home">
+    <div class="hero-button-container">
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSf3REOdr4O4ra9QgtUACuWxoVvyhmBqZCRUszShhFUn4nDITw/viewform" target="_blank">
+        <button class="join-btn">
+          <svg viewBox="0 0 300 80" preserveAspectRatio="none">
+            <rect x="0" y="0" width="300" height="80" rx="15" ry="15"></rect>
+          </svg>
+          <span>Приєднатися до турніру</span>
+        </button>
+      </a>
+    </div>
+  </div>
+
+  <main>
+    <section id="register" class="register-section">
+      <div class="register-text">
+        <h1>Інформація про турнір та його проведення</h1>
+        <p>
+          У навчальному закладі відбудеться турнір з CS2 серед студентських груп.
+        </p>
+        <p>
+          Команди змагатимуться у форматі 5х5, демонструючи свої навички та командну взаємодію.
+        </p>
+        <p>
+          Учасники повинні дотримуватися чесної гри, а переможці отримають дипломи та призи.
+        </p>
+        <p>
+          Турнір буде транслюватися онлайн. Слідкуйте за оновленнями у соціальних мережах навчального закладу та студеньської ради!
+        </p>
+      </div>
+      <img src="image/simple.png" alt="CS2 Турнір">
+    </section>
+
+    <h1 class="news-title">Новини</h1>
+
+    <section class="stream">
+      <h2>Пряма трансляція турніру</h2>
+      <p>Запрошуємо на пряму трансляцію турніру з CS2!</p>
+      <p>Шановні геймери та вболівальники! Не пропустіть епічну битву між командами навчального закладу у турнірі з Counter-Strike 2!</p>
+      <ul>
+        <li><strong>Дата:</strong> [вказати дату]</li>
+        <li><strong>Час початку:</strong> [вказати час]</li>
+        <li><strong>Де дивитися:</strong> [вказати платформу – YouTube, Twitch або інше]</li>
+      </ul>
+      <p>Долучайтеся до трансляції, підтримуйте улюблені команди та стежте за яскравими моментами боїв!</p>
+      <p>Найкращий гравець отримає додаткову оцінку до семестрової оцінки, а команда-переможець — додатковий бал до одного предмета на вибір!</p>
+      <p><strong>Посилання на трансляцію:</strong> [вставити посилання]</p>
+    </section>
+  </main>
+
+  <!-- Нижнее меню -->
+  <div class="footer-menu">
+    <div class="nav-center">
+      <nav>
+        <a href="home.html">Головна</a>
+        <a href="net.html">Турнірна сітка</a>
+        <a href="register.html">Реєстрація на турнір</a>
+        <a href="info.html">Правила турніру</a>
+      </nav>
+    </div>
+    <img src="image/icon.png" alt="Логотип" class="logo">
+  </div>
+
+  <!-- Футер -->
+  <footer>
+    <div class="footer-links">
+      <div>
+        <h2>Інстограмм ДФКР</h2>
+        <a href="https://www.instagram.com/kre.dnipro?igsh=MXFzcDRtaTFlYnFncw==" target="_blank">
+          https://www.instagram.com/kre.dnipro?igsh=MXFzcDRtaTFlYnFncw==
+        </a>
+      </div>
+      <div>
+        <h2>Інстограмм Студенської ради</h2>
+        <a href="https://www.instagram.com/stud.dacr?igsh=MTRud2EzNmJtNTZ2ZQ==" target="_blank">
+          https://www.instagram.com/stud.dacr?igsh=MTRud2EzNmJtNTZ2ZQ==
+        </a>
+      </div>
+    </div>
+    <div class="icon-footer">
+      <img src="image/icon.png" alt="Icon">
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Турнірна сітка</title>
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@700&family=Montserrat:wght@500&family=IBM+Plex+Sans&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --main-bg-color: #D9D9D9;
+      --text-color: #000000;
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--main-bg-color);
+      color: var(--text-color);
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 25px;
+      line-height: 1.6;
+    }
+
+    header, .footer-menu {
+      background-color: #000000;
+      padding: 1rem 5rem;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    nav {
+      display: flex;
+      gap: 2.5rem;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 20px;
+      transition: color 0.3s, transform 0.3s;
+    }
+
+    nav a:hover {
+      color: #FFD700;
+      transform: scale(1.1);
+    }
+
+    .logo {
+      position: absolute;
+      right: 2rem;
+      width: 40px;
+      height: 40px;
+    }
+
+    main {
+      padding: 3rem 2rem;
+      max-width: 1200px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .bracket-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 20px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+
+    footer {
+      background-color: #000;
+      color: #fff;
+      padding: 3rem 2rem 6rem;
+      position: relative;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+      gap: 2rem;
+    }
+
+    .footer-links a {
+      display: block;
+      color: #ccc;
+      margin-top: 0.5rem;
+      text-decoration: underline;
+      word-break: break-word;
+    }
+
+    .footer-links h2 {
+      font-size: 22px;
+      margin-bottom: 0.5rem;
+    }
+
+    .icon-footer {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      width: 50px;
+      height: 50px;
+    }
+
+    .icon-footer img {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Верхнє меню -->
+  <header>
+    <div class="nav-center">
+      <nav>
+        <a href="home.html#home">Головна</a>
+        <a href="net.html">Турнірна сітка</a>
+        <a href="register.html#register">Реєстрація на турнір</a>
+        <a href="info.html#rules">Правила турніру</a>
+      </nav>
+    </div>
+    <img src="image/icon.png" alt="Логотип" class="logo">
+  </header>
+
+  <main>
+    <h1>Турнірна сітка</h1>
+    <img src="image/setka.png" alt="Турнірна сітка" class="bracket-image">
+  </main>
+
+  <!-- Нижнє меню -->
+  <div class="footer-menu">
+    <div class="nav-center">
+      <nav>
+        <a href="home.html#home">Головна</a>
+        <a href="net.html">Турнірна сітка</a>
+        <a href="register.html#register">Реєстрація на турнір</a>
+        <a href="info.html#rules">Правила турніру</a>
+      </nav>
+    </div>
+    <img src="image/icon.png" alt="Логотип" class="logo">
+  </div>
+
+  <!-- Футер -->
+  <footer>
+    <div class="footer-links">
+      <div>
+        <h2>Інстограмм ДФКР</h2>
+        <a href="https://www.instagram.com/kre.dnipro?igsh=MXFzcDRtaTFlYnFncw==" target="_blank">
+          https://www.instagram.com/kre.dnipro
+        </a>
+      </div>
+      <div>
+        <h2>Інстограмм Студенської ради</h2>
+        <a href="https://www.instagram.com/stud.dacr?igsh=MTRud2EzNmJtNTZ2ZQ==" target="_blank">
+          https://www.instagram.com/stud.dacr
+        </a>
+      </div>
+    </div>
+    <div class="icon-footer">
+      <img src="image/icon.png" alt="Icon">
+    </div>
+  </footer>
+
+</body>
+</html>

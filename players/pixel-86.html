@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Криковлюк Костянтин — Гравець</title>
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@700&family=Montserrat:wght@500&family=IBM+Plex+Sans&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'IBM Plex Sans', sans-serif;
+      background-color: #D9D9D9;
+      color: #000;
+      overflow-x: hidden;
+    }
+
+    header, .footer-menu {
+      background-color: #000;
+      padding: 1rem 5rem;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: slideDown 0.8s ease-out;
+    }
+
+    .nav-center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    nav {
+      display: flex;
+      gap: 2.5rem;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 20px;
+      position: relative;
+      transition: all 0.3s ease;
+      transform: translateY(0);
+    }
+
+    nav a:hover {
+      color: #ffd700;
+      transform: translateY(-2px);
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background-color: #fff;
+      transition: width 0.3s ease-in-out;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .logo {
+      position: absolute;
+      top: 10px;
+      right: 2rem;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      transition: transform 0.4s ease;
+    }
+
+    .logo:hover {
+      transform: scale(1.2) rotate(10deg);
+    }
+
+    .player-card {
+      background: #BFBFBF;
+      border-radius: 15px;
+      padding: 2rem;
+      max-width: 600px;
+      margin: 2rem auto;
+      text-align: center;
+      animation: fadeIn 1.2s ease-out;
+    }
+
+    .player-card img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      margin-bottom: 1rem;
+    }
+
+    .player-card h1 {
+      font-family: 'Ubuntu', sans-serif;
+      font-size: 36px;
+      margin-bottom: 1rem;
+    }
+
+    .stats {
+      font-size: 20px;
+      line-height: 1.6;
+      text-align: left;
+      margin-top: 1rem;
+      padding: 0 1rem;
+    }
+
+    footer {
+      background-color: #000;
+      color: #fff;
+      padding: 3rem 2rem 6rem;
+      position: relative;
+      animation: slideUp 1s ease-out;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+      gap: 2rem;
+    }
+
+    .footer-links a {
+      display: block;
+      color: #ccc;
+      margin-top: 0.5rem;
+      text-decoration: underline;
+      word-break: break-word;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: #fff;
+    }
+
+    .footer-links h2 {
+      font-size: 22px;
+      margin-bottom: 0.5rem;
+    }
+
+    .icon-footer {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      width: 50px;
+      height: 50px;
+      animation: fadeIn 2s ease-out;
+    }
+
+    .icon-footer img {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Анимации */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Верхнее меню -->
+  <header>
+    <div class="nav-center">
+      <nav>
+        <a href="../home.html">Головна</a>
+        <a href="../net.html">Турнірна сітка</a>
+        <a href="../register.html">Реєстрація</a>
+        <a href="../teams.html">Команди</a>
+      </nav>
+    </div>
+    <a href="../paskhalka.html">
+      <img src="../image/icon.png" alt="Логотип" class="logo">
+    </a>
+  </header>
+
+  <!-- Контент -->
+  <div class="player-card">
+    <img src="https://i.imgur.com/zL4Krbz.png" alt="Криковлюк Костянтин">
+    <h1>Криковлюк Костянтин</h1>
+    <div class="stats">
+      <p><strong>Matches:</strong> нема</p>
+      <p><strong>Win Rate:</strong> нема</p>
+      <p><strong>HS%:</strong> нема</p>
+      <p><strong>HLTV Rating:</strong> нема</p>
+      <p><strong>K/D:</strong> нема</p>
+      <p><strong>Улюблена зброя:</strong> нема</p>
+    </div>
+  </div>
+
+  <!-- Нижнее меню -->
+  <div class="footer-menu">
+    <div class="nav-center">
+      <nav>
+        <a href="../home.html">Головна</a>
+        <a href="../net.html">Турнірна сітка</a>
+        <a href="../register.html">Реєстрація</a>
+        <a href="../teams.html">Команди</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Футер -->
+  <footer>
+    <div class="footer-links">
+      <div>
+        <h2>Instagram ДФКР</h2>
+        <a href="https://www.instagram.com/kre.dnipro" target="_blank">
+          https://www.instagram.com/kre.dnipro
+        </a>
+      </div>
+      <div>
+        <h2>Instagram Студенської ради</h2>
+        <a href="https://www.instagram.com/stud.dacr" target="_blank">
+          https://www.instagram.com/stud.dacr
+        </a>
+      </div>
+    </div>
+    <div class="icon-footer">
+      <img src="../image/icon.png" alt="Icon">
+    </div>
+  </footer>
+
+</body>
+</html>

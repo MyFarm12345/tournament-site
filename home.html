@@ -303,7 +303,7 @@
       }
     }
 
-    @media (max-width: 480px) {
+    @media (max-width: 425px) {
       nav {
         flex-direction: column;
         gap: 1rem;
@@ -325,6 +325,18 @@
       .icon-footer {
         width: 40px;
         height: 40px;
+       }
+      .register-text h1{
+         font-size: 12px;
+         text-align: left; 
+         padding: 0 rem; 
+      }
+      .register-text p{
+         font-size: 8px;
+         line-height: 1.5;
+         border-radius: 5px;
+         text-align: left; 
+         padding: 0 rem;
       }
     }
   </style>
@@ -336,7 +348,6 @@
     <nav>
       <a href="home.html">Головна</a>
       <a href="net.html">Турнірна сітка</a>
-      <a href="register.html">Реєстрація на турнір</a>
       <a href="info.html">Правила турніру</a>
     </nav>
   </div>
@@ -344,16 +355,16 @@
 </header>
 
 <div class="fullscreen-image" id="home">
-  <div class="hero-button-container">
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLSf3REOdr4O4ra9QgtUACuWxoVvyhmBqZCRUszShhFUn4nDITw/viewform" target="_blank">
-      <button class="join-btn">
-        <svg viewBox="0 0 300 80" preserveAspectRatio="none">
-          <rect x="0" y="0" width="300" height="80" rx="15" ry="15"></rect>
-        </svg>
-        <span>Приєднатися до турніру</span>
-      </button>
-    </a>
-  </div>
+<div class="hero-button-container">
+  <a href="#news">
+    <button class="join-btn">
+      <svg viewBox="0 0 300 80" preserveAspectRatio="none">
+        <rect x="0" y="0" width="300" height="80" rx="15" ry="15"></rect>
+      </svg>
+      <span>Інформація</span>
+    </button>
+  </a>
+</div>
 </div>
 
 <main>
@@ -368,17 +379,17 @@
     <img src="image/simple.png" alt="CS2 Турнір">
   </section>
 
-  <h1 class="news-title">Новини</h1>
+  <h1 class="news-title" id="news">Новини</h1>
 
   <section class="stream">
     <h2>Пряма трансляція турніру</h2>
     <p>Запрошуємо на пряму трансляцію турніру з CS2!</p>
     <ul>
-      <li><strong>Дата:</strong> [вказати дату]</li>
-      <li><strong>Час початку:</strong> [вказати час]</li>
-      <li><strong>Де дивитися:</strong> [вказати платформу]</li>
+      <li><strong>Дата створення:</strong> [20 травня 2025 року]</li>
+      <li><strong>Час початку:</strong> [з'явиться 26 числа]</li>
+      <li><strong>Де дивитися:</strong> [з'явиться 26 числа]</li>
     </ul>
-    <p><strong>Посилання на трансляцію:</strong> [вставити посилання]</p>
+    <p><strong>Посилання на трансляцію:</strong> [з'явиться 26 числа]</p>
   </section>
 </main>
 
@@ -387,11 +398,9 @@
     <nav>
       <a href="home.html">Головна</a>
       <a href="net.html">Турнірна сітка</a>
-      <a href="register.html">Реєстрація на турнір</a>
       <a href="info.html">Правила турніру</a>
     </nav>
   </div>
-  <img src="image/icon.png" alt="Логотип" class="logo">
 </div>
 
 <footer>
@@ -428,4 +437,4 @@
 </script>
 
 </body>
-</html>
+</html> 

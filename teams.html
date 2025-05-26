@@ -2,25 +2,22 @@
 <html lang="uk">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Реєстрація на турнір</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Команди</title>
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@700&family=Montserrat:wght@500&family=IBM+Plex+Sans&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --main-bg-color: #D9D9D9;
-      --text-color: #000000;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
+    html, body {
+      height: 100%;
       margin: 0;
-      background-color: var(--main-bg-color);
-      color: var(--text-color);
+      display: flex;
+      flex-direction: column;
       font-family: 'IBM Plex Sans', sans-serif;
-      font-size: 20px;
+      background-color: #D9D9D9;
+      color: #000;
+    }
+
+    main {
+      flex: 1;
     }
 
     header, .footer-menu {
@@ -30,20 +27,16 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      animation: fadeDown 1s ease-in-out;
     }
 
     .nav-center {
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 100%;
     }
 
     nav {
       display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
       gap: 2.5rem;
     }
 
@@ -73,77 +66,54 @@
 
     .logo {
       position: absolute;
+      top: 10px;
       right: 2rem;
       width: 40px;
       height: 40px;
-    }
-
-    main {
-      padding: 3rem 2rem;
-      max-width: 1000px;
-      margin: auto;
+      cursor: pointer;
     }
 
     h1 {
-      font-family: 'Ubuntu', sans-serif;
-      font-size: 36px;
       text-align: center;
-      margin-bottom: 2rem;
+      font-size: 45px;
+      padding: 2rem 1rem 1rem;
+      font-family: 'Ubuntu', sans-serif;
     }
 
-    .register-block {
-      background: white;
+    .teams {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2rem;
       padding: 2rem;
-      border-radius: 20px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-      animation: fadeUp 1s ease forwards;
-      opacity: 0;
-      transform: translateY(30px);
     }
 
-    @keyframes fadeDown {
-      0% {
-        opacity: 0;
-        transform: translateY(-30px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .team-card {
+      background: #BFBFBF;
+      border-radius: 15px;
+      width: 250px;
+      text-align: center;
+      padding: 1.5rem;
+      text-decoration: none;
+      color: #000;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
     }
 
-    @keyframes fadeUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .team-card:hover {
+      transform: translateY(-5px);
     }
 
-    .register-block p {
-      font-size: 20px;
+    .team-card img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 50%;
       margin-bottom: 1rem;
     }
 
-    .register-block ul {
-      margin-top: 0;
-      padding-left: 1.2rem;
-    }
-
-    .register-link {
-      display: inline-block;
-      margin-top: 1.5rem;
-      padding: 0.75rem 1.5rem;
-      background-color: #000;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 10px;
-      font-weight: bold;
-      transition: background-color 0.3s ease-in-out;
-    }
-
-    .register-link:hover {
-      background-color: #505050;
-      color: #fff;
+    .team-card h2 {
+      font-size: 25px;
     }
 
     footer {
@@ -187,16 +157,6 @@
       width: 100%;
       height: 100%;
     }
-
-    @media (max-width: 768px) {
-      nav {
-        flex-direction: column;
-        gap: 1rem;
-      }
-      .logo {
-        display: none;
-      }
-    }
   </style>
 </head>
 <body>
@@ -207,23 +167,44 @@
       <nav>
         <a href="home.html">Головна</a>
         <a href="net.html">Турнірна сітка</a>
-        <a href="register.html">Реєстрація на турнір</a>
         <a href="info.html">Правила турніру</a>
-      <a href="teams.html">Команди</a>
+        <a href="teams.html">Команди</a>
       </nav>
     </div>
-    <img src="image/icon.png" alt="Логотип" class="logo">
+    <a href="paskhalka.html">
+      <img src="image/icon.png" alt="Логотип" class="logo">
+    </a>
   </header>
 
+  <!-- Контент -->
   <main>
-    <h1>Реєстрація на турнір</h1>
-    <div class="register-block">
-      <p><strong>Шановні студенти!</strong> У вашому навчальному закладі проходить турнір з <strong>Counter-Strike 2</strong> між групами. Зберіть свою команду (5 гравців) і покажіть, хто тут найкращий!</p>
-      <p><strong>Переможці отримають:</strong></p>
-      <ul>
-        <li>🎯 Додатковий бал до одного предмета на вибір</li>
-      </ul>
-      <a class="register-link" href="https://docs.google.com/forms/d/e/1FAIpQLSf3REOdr4O4ra9QgtUACuWxoVvyhmBqZCRUszShhFUn4nDITw/viewform" target="_blank">Заповнити форму</a>
+    <h1>Список команд</h1>
+
+    <div class="teams">
+      <a class="team-card" href="MirageSons.html">
+        <img src="image/icon2.png" alt="MirageSons">
+        <h2>MirageSons</h2>
+      </a>
+
+      <a class="team-card" href="fv.html">
+        <img src="image/icon4.png" alt="феечки винкс">
+        <h2>феечки винкс</h2>
+      </a>
+
+      <a class="team-card" href="ATB.html">
+        <img src="image/icon3.png" alt="ATB">
+        <h2>ATB</h2>
+      </a>
+
+      <a class="team-card" href="85.html">
+        <img src="image/icon5.png" alt="85">
+        <h2>85 штурмова бригада</h2>
+      </a>
+
+      <a class="team-card" href="prisoners.html">
+        <img src="image/icon6.png" alt="prisonerss">
+        <h2>prisoners</h2>
+      </a>
     </div>
   </main>
 
@@ -233,9 +214,8 @@
       <nav>
         <a href="home.html">Головна</a>
         <a href="net.html">Турнірна сітка</a>
-        <a href="register.html">Реєстрація на турнір</a>
         <a href="info.html">Правила турніру</a>
-      <a href="teams.html">Команди</a>
+        <a href="teams.html">Команди</a>
       </nav>
     </div>
   </div>
@@ -245,13 +225,13 @@
     <div class="footer-links">
       <div>
         <h2>Instagram ДФКР</h2>
-        <a href="https://www.instagram.com/kre.dnipro?igsh=MXFzcDRtaTFlYnFncw==" target="_blank">
+        <a href="https://www.instagram.com/kre.dnipro" target="_blank">
           https://www.instagram.com/kre.dnipro
         </a>
       </div>
       <div>
         <h2>Instagram Студенської ради</h2>
-        <a href="https://www.instagram.com/stud.dacr?igsh=MTRud2EzNmJtNTZ2ZQ==" target="_blank">
+        <a href="https://www.instagram.com/stud.dacr" target="_blank">
           https://www.instagram.com/stud.dacr
         </a>
       </div>

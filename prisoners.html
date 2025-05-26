@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Команда prisoners</title>
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@700&family=Montserrat:wght@500&family=IBM+Plex+Sans&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'IBM Plex Sans', sans-serif;
+      background-color: #D9D9D9;
+      color: #000;
+    }
+
+    header, .footer-menu {
+      background-color: #000;
+      padding: 1rem 5rem;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    nav {
+      display: flex;
+      gap: 2.5rem;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 20px;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background-color: #fff;
+      transition: width 0.3s ease-in-out;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .logo {
+      position: absolute;
+      top: 10px;
+      right: 2rem;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+    }
+
+    .team-header {
+      text-align: center;
+      margin: 2rem auto 1rem;
+    }
+
+    .team-header img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+    }
+
+    .team-header h1 {
+      font-family: 'Ubuntu', sans-serif;
+      font-size: 45px;
+      margin: 1rem 0 0;
+    }
+
+    .team-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      max-width: 1000px;
+      margin: 0 auto 4rem;
+      background: #BFBFBF;
+      border-radius: 15px;
+      padding: 2rem;
+    }
+
+    .player-list {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .player-list h2 {
+      font-size: 25px;
+      margin-bottom: 1rem;
+    }
+
+    .player-list ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .player-list li {
+      margin-bottom: 1rem;
+    }
+
+    .player-list a {
+      text-decoration: none;
+      color: #000;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    .player-list a:hover {
+      color: #333;
+    }
+
+    .team-avatar {
+      flex: 1;
+      min-width: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .team-avatar img {
+      width: 100%;
+      max-width: 300px;
+      border-radius: 20px;
+    }
+
+    footer {
+      background-color: #000;
+      color: #fff;
+      padding: 3rem 2rem 6rem;
+      position: relative;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+      gap: 2rem;
+    }
+
+    .footer-links a {
+      display: block;
+      color: #ccc;
+      margin-top: 0.5rem;
+      text-decoration: underline;
+      word-break: break-word;
+    }
+
+    .footer-links h2 {
+      font-size: 22px;
+      margin-bottom: 0.5rem;
+    }
+
+    .icon-footer {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      width: 50px;
+      height: 50px;
+    }
+
+    .icon-footer img {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Верхнее меню -->
+  <header>
+    <div class="nav-center">
+      <nav>
+        <a href="home.html">Головна</a>
+        <a href="net.html">Турнірна сітка</a>
+        <a href="register.html">Реєстрація</a>
+        <a href="teams.html">Команди</a>
+      </nav>
+    </div>
+    <a href="paskhalka.html">
+      <img src="image/icon.png" alt="Логотип" class="logo">
+    </a>
+  </header>
+
+  <!-- Контент -->
+  <div class="team-header">
+    <img src="image/icon6.png" alt="prisoners">
+    <h1>prisoners</h1>
+  </div>
+
+  <div class="team-content">
+    <div class="player-list">
+      <h2>Гравці</h2>
+      <ul>
+        <li><a href="players/Blade-79.html">Рустам Защолкін - Капiтан</a></li>
+        <li><a href="players/viper-79.html">Анатолій Сосніцький</a></li>
+        <li><a href="players/ghost-79.html">Носко Микита</a></li>
+        <li><a href="players/pixel-79.html">Носко Тіхон</a></li>
+        <li><a href="players/razor-79.html">Єфімов Олександр</a></li>
+      </ul>
+    </div>
+    <div class="team-avatar">
+      <img src="image/icon6.png" alt="prisoners">
+    </div>
+  </div>
+
+  <!-- Нижнее меню -->
+  <div class="footer-menu">
+    <div class="nav-center">
+      <nav>
+        <a href="home.html">Головна</a>
+        <a href="net.html">Турнірна сітка</a>
+        <a href="register.html">Реєстрація</a>
+        <a href="teams.html">Команди</a>
+      </nav>
+    </div>
+    <a href="paskhalka.html">
+      <img src="image/icon.png" alt="Логотип" class="logo">
+    </a>
+  </div>
+
+  <!-- Футер -->
+  <footer>
+    <div class="footer-links">
+      <div>
+        <h2>Instagram ДФКР</h2>
+        <a href="https://www.instagram.com/kre.dnipro" target="_blank">https://www.instagram.com/kre.dnipro</a>
+      </div>
+      <div>
+        <h2>Instagram Студенської ради</h2>
+        <a href="https://www.instagram.com/stud.dacr" target="_blank">https://www.instagram.com/stud.dacr</a>
+      </div>
+    </div>
+    <div class="icon-footer">
+      <img src="image/icon.png" alt="Icon">
+    </div>
+  </footer>
+
+</body>
+</html>

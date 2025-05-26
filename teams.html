@@ -22,29 +22,34 @@
 
     header, .footer-menu {
       background-color: #000;
-      padding: 1rem 5rem;
-      position: relative;
+      padding: 1rem 2rem;
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
     }
 
     .nav-center {
       display: flex;
       justify-content: center;
       align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
     }
 
     nav {
       display: flex;
-      gap: 2.5rem;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
     nav a {
       color: #fff;
       text-decoration: none;
       font-family: 'Montserrat', sans-serif;
-      font-size: 20px;
+      font-size: 18px;
       position: relative;
       transition: color 0.3s ease;
     }
@@ -67,15 +72,15 @@
     .logo {
       position: absolute;
       top: 10px;
-      right: 2rem;
-      width: 40px;
-      height: 40px;
+      right: 1rem;
+      width: 35px;
+      height: 35px;
       cursor: pointer;
     }
 
     h1 {
       text-align: center;
-      font-size: 45px;
+      font-size: clamp(28px, 6vw, 45px);
       padding: 2rem 1rem 1rem;
       font-family: 'Ubuntu', sans-serif;
     }
@@ -84,16 +89,17 @@
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      gap: 2rem;
-      padding: 2rem;
+      gap: 1.5rem;
+      padding: 1rem;
     }
 
     .team-card {
       background: #BFBFBF;
       border-radius: 15px;
-      width: 250px;
+      width: 100%;
+      max-width: 240px;
       text-align: center;
-      padding: 1.5rem;
+      padding: 1.2rem;
       text-decoration: none;
       color: #000;
       box-shadow: 0 5px 15px rgba(0,0,0,0.1);
@@ -105,57 +111,75 @@
     }
 
     .team-card img {
-      width: 100px;
-      height: 100px;
+      width: 90px;
+      height: 90px;
       object-fit: cover;
       border-radius: 50%;
       margin-bottom: 1rem;
     }
 
     .team-card h2 {
-      font-size: 25px;
+      font-size: 20px;
     }
 
     footer {
       background-color: #000;
       color: #fff;
-      padding: 3rem 2rem 6rem;
+      padding: 2rem 1rem 4rem;
       position: relative;
     }
 
     .footer-links {
       display: flex;
-      justify-content: space-around;
-      align-items: flex-start;
-      flex-wrap: wrap;
-      margin-top: 2rem;
+      flex-direction: column;
       gap: 2rem;
     }
 
-    .footer-links a {
-      display: block;
-      color: #ccc;
-      margin-top: 0.5rem;
-      text-decoration: underline;
-      word-break: break-word;
+    .footer-links h2 {
+      font-size: 18px;
+      margin-bottom: 0.5rem;
     }
 
-    .footer-links h2 {
-      font-size: 22px;
-      margin-bottom: 0.5rem;
+    .footer-links a {
+      color: #ccc;
+      text-decoration: underline;
+      word-break: break-word;
     }
 
     .icon-footer {
       position: absolute;
       bottom: 10px;
       right: 10px;
-      width: 50px;
-      height: 50px;
+      width: 40px;
+      height: 40px;
     }
 
     .icon-footer img {
       width: 100%;
       height: 100%;
+    }
+
+    /* Адаптивні стилі */
+    @media (max-width: 768px) {
+      nav {
+        gap: 1rem;
+      }
+
+      .logo {
+        width: 30px;
+        height: 30px;
+        top: 8px;
+        right: 1rem;
+      }
+
+      .team-card {
+        max-width: 100%;
+      }
+
+      .footer-links {
+        flex-direction: column;
+        align-items: flex-start;
+      }
     }
   </style>
 </head>

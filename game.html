@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Міні-гра — Студентська рада</title>
+<style>
+:root{
+  --bg1:#ffffff; --bg2:#f8fafc; --accent:#2563eb;
+  --text-primary:#1e293b; --text-secondary:#64748b;
+  --card:#ffffff; --border:#e2e8f0;
+  --success:#10b981; --warning:#f59e0b; --error:#ef4444;
+}
+*{box-sizing:border-box}
+body {
+  margin:0;
+  font-family:Inter, "Segoe UI", Roboto, Arial, system-ui;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+  color:var(--text-primary);
+  background: #ffffff;
+  line-height: 1.6;
+}
+
+/* Improved animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* top bar */
+header{
+  position:sticky; top:0; z-index:60;
+  backdrop-filter: blur(8px);
+  background: rgba(255,255,255,0.95);
+  border-bottom:1px solid var(--border);
+  padding:12px 22px;
+  display:flex; align-items:center; justify-content:space-between;
+  transition: all 0.3s ease;
+}
+header.scrolled {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+.logo{display:flex;gap:12px;align-items:center;font-weight:700;color:#0f172a; text-decoration: none;}
+.logo:hover { opacity: 0.9; }
+.logo .badge{background:var(--accent); width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;box-shadow:0 4px 14px rgba(37, 99, 235, 0.15); transition: all 0.3s ease;}
+.logo .badge:hover { transform: rotate(5deg); }
+nav{display:flex;gap:8px;align-items:center; flex-wrap: wrap;}
+nav button{background:transparent;border:none;color:var(--text-primary);padding:8px 12px;border-radius:8px;font-weight:600;cursor:pointer; transition: all 0.2s ease;}
+nav button:hover{background:rgba(0,0,0,0.05); transform: translateY(-2px);}
+nav button.active{background:var(--accent); color: white;}
+.auth{display:flex;gap:8px;align-items:center}
+.auth button{background:var(--accent); color:#fff;padding:8px 16px;border-radius:10px;border:none;font-weight:700;cursor:pointer; transition: all 0.3s ease;}
+.auth button:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2); }
+.auth .role{background:rgba(0,0,0,0.05); padding:6px 12px;border-radius:999px;color:var(--text-primary);border:1px solid rgba(0,0,0,0.05); font-size: 12px;}
+
+/* container */
+.wrap{max-width:1200px;margin:28px auto;padding:0 20px}
+
+/* Game specific styles */
+.game-container {
+  background: var(--card);
+  border-radius: 18px;
+  padding: 32px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  border: 1px solid var(--border);
+  text-align: center;
+  margin-bottom: 28px;
+  animation: fadeIn 0.8s ease;
+}
+
+.game-title {
+  font-size: 32px;
+  margin: 0 0 12px;
+  color: #0f172a;
+}
+
+.game-subtitle {
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+}
+
+.quiz-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.question-number {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.question-text {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  color: var(--text-primary);
+}
+
+.options-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.option {
+  padding: 16px;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.option:hover {
+  background: #f1f5f9;
+  transform: translateY(-2px);
+}
+
+.option.selected {
+  border-color: var(--accent);
+  background: rgba(37, 99, 235, 0.05);
+}
+
+.option.correct {
+  border-color: var(--success);
+  background: rgba(16, 185, 129, 0.05);
+}
+
+.option.incorrect {
+  border-color: var(--error);
+  background: rgba(239, 68, 68, 0.05);
+}
+
+.game-controls {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.game-btn {
+  background: var(--accent);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.game-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(37, 99, 235, 0.2);
+}
+
+.game-btn.secondary {
+  background: #f1f5f9;
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.game-btn.secondary:hover {
+  background: #e2e8f0;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.score-container {
+  margin-top: 24px;
+  padding: 16px;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+
+.score-text {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.high-score {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+/* footer */
+footer{margin:60px auto 30px; text-align:center;color:var(--text-secondary); padding: 20px; border-top: 1px solid var(--border);}
+
+/* responsive */
+@media (max-width:768px){
+  header { flex-direction: column; gap: 15px; padding: 15px; }
+  nav { width: 100%; justify-content: center; }
+  .auth { width: 100%; justify-content: center; }
+  .game-container { padding: 20px; }
+  .game-title { font-size: 26px; }
+}
+
+@media (max-width:480px){
+  .wrap { padding: 0 15px; }
+  .game-btn { width: 100%; justify-content: center; }
+  .game-controls { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">
+    <div class="badge">SR</div>
+    <div>
+      <div style="font-size:14px;color:#334155">Студентська рада</div>
+      <div style="font-size:11px;color:#64748b">Коледж — офіційний сайт ДФКР</div>
+    </div>
+  </a>
+  <nav>
+    <a href="index.html"><button>Головна</button></a>
+    <a href="info.html"><button>Про раду</button></a>
+    <a href="command.html"><button>Команда</button></a>
+    <a href="news.html"><button>Новини</button></a>
+    <a href="project.html"><button>Проєкти</button></a>
+    <a href="game.html"><button class="active">Міні-гра</button></a>
+  </nav>
+  <div class="auth">
+    <button onclick="location.href='index.html'">На головну</button>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="game-container">
+    <h1 class="game-title">Студентська вікторина</h1>
+    <p class="game-subtitle">Перевір свої знання про студентське життя та наш коледж!</p>
+    
+    <div class="quiz-container">
+      <div id="question-number" class="question-number">Питання 1/5</div>
+      <div id="question-text" class="question-text">Яка місія студентської ради?</div>
+      
+      <div class="options-container" id="options-container">
+        <!-- Options will be inserted here by JavaScript -->
+      </div>
+      
+      <div class="game-controls">
+        <button id="prev-btn" class="game-btn secondary">← Попереднє</button>
+        <button id="next-btn" class="game-btn">Наступне →</button>
+        <button id="submit-btn" class="game-btn" style="display: none;">Завершити</button>
+        <button id="restart-btn" class="game-btn secondary" style="display: none;">Спробувати ще</button>
+      </div>
+      
+      <div id="score-container" class="score-container" style="display: none;">
+        <div class="score-text">Ваш результат: <span id="score-value">0</span>/5</div>
+        <div id="score-message"></div>
+        <div class="high-score">Найкращий результат: <span id="high-score-value">0</span></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div style="opacity:0.9;color:var(--text-secondary); margin-bottom: 10px;">© 2025 Студентська рада — зроблено з ❤️ для студентів</div>
+  <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+    <a href="privacy.html" style="color: var(--accent); text-decoration: none;">Політика конфіденційності</a>
+    <a href="#" style="color: var(--accent); text-decoration: none;">Допомога</a>
+  </div>
+</footer>
+
+<script>
+
+const quizQuestions = [
+  {
+    question: "Яка місія студентської ради?",
+    options: [
+      "Організовувати навчальний процес",
+      "Зробити студентське життя незабутнім",
+      "Забезпечувати дисципліну в коледжі",
+      "Створювати нові навчальні курси"
+    ],
+    correctIndex: 1
+  },
+  {
+    question: "Скільки членів у студентській раді?",
+    options: [
+      "15",
+      "22",
+      "25",
+      "30"
+    ],
+    correctIndex: 1
+  },
+  {
+    question: "Який проєкт НЕ входить в діяльність студради?",
+    options: [
+      "IT-інновації",
+      "Здоровий спосіб життя",
+      "Розвиток особистості",
+      "Викладання лекцій"
+    ],
+    correctIndex: 3
+  },
+  {
+    question: "Де знаходиться офіс студентської ради?",
+    options: [
+      "ауд. 105, 1 поверх",
+      "ауд. 205, 2 поверх",
+      "ауд. 305, 3 поверх",
+      "ауд. 405, 4 поверх"
+    ],
+    correctIndex: 2
+  },
+  {
+    question: "Як зв'язатися з студентською радою?",
+    options: [
+      "Тільки через соціальні мережі",
+      "Тільки по телефону",
+      "Тільки через email",
+      "Через різні канали комунікації"
+    ],
+    correctIndex: 3
+  }
+];
+
+// Game state
+let currentQuestion = 0;
+let userAnswers = Array(quizQuestions.length).fill(null);
+let score = 0;
+let highScore = localStorage.getItem('quizHighScore') || 0;
+
+// DOM elements
+const questionNumberEl = document.getElementById('question-number');
+const questionTextEl = document.getElementById('question-text');
+const optionsContainerEl = document.getElementById('options-container');
+const prevBtn = document.getElementById('prev-btn');
+const nextBtn = document.getElementById('next-btn');
+const submitBtn = document.getElementById('submit-btn');
+const restartBtn = document.getElementById('restart-btn');
+const scoreContainerEl = document.getElementById('score-container');
+const scoreValueEl = document.getElementById('score-value');
+const highScoreValueEl = document.getElementById('high-score-value');
+const scoreMessageEl = document.getElementById('score-message');
+
+// Initialize the game
+function initGame() {
+  highScoreValueEl.textContent = highScore;
+  loadQuestion();
+  setupEventListeners();
+}
+
+// Load current question
+function loadQuestion() {
+  const question = quizQuestions[currentQuestion];
+  questionNumberEl.textContent = `Питання ${currentQuestion + 1}/${quizQuestions.length}`;
+  questionTextEl.textContent = question.question;
+  
+  // Clear previous options
+  optionsContainerEl.innerHTML = '';
+  
+  // Add new options
+  question.options.forEach((option, index) => {
+    const optionEl = document.createElement('div');
+    optionEl.className = 'option';
+    if (userAnswers[currentQuestion] === index) {
+      optionEl.classList.add('selected');
+    }
+    optionEl.textContent = option;
+    optionEl.dataset.index = index;
+    optionsContainerEl.appendChild(optionEl);
+  });
+  
+  // Update buttons
+  prevBtn.style.display = currentQuestion === 0 ? 'none' : 'flex';
+  nextBtn.style.display = currentQuestion === quizQuestions.length - 1 ? 'none' : 'flex';
+  submitBtn.style.display = currentQuestion === quizQuestions.length - 1 ? 'flex' : 'none';
+}
+
+// Set up event listeners
+function setupEventListeners() {
+  // Option selection
+  optionsContainerEl.addEventListener('click', (e) => {
+    if (e.target.classList.contains('option')) {
+      const selectedIndex = parseInt(e.target.dataset.index);
+      userAnswers[currentQuestion] = selectedIndex;
+      
+      // Update UI
+      document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+      e.target.classList.add('selected');
+    }
+  });
+  
+  // Navigation buttons
+  prevBtn.addEventListener('click', () => {
+    if (currentQuestion > 0) {
+      currentQuestion--;
+      loadQuestion();
+    }
+  });
+  
+  nextBtn.addEventListener('click', () => {
+    if (currentQuestion < quizQuestions.length - 1) {
+      currentQuestion++;
+      loadQuestion();
+    }
+  });
+  
+  // Submit quiz
+  submitBtn.addEventListener('click', calculateScore);
+  
+  // Restart quiz
+  restartBtn.addEventListener('click', () => {
+    currentQuestion = 0;
+    userAnswers = Array(quizQuestions.length).fill(null);
+    scoreContainerEl.style.display = 'none';
+    restartBtn.style.display = 'none';
+    nextBtn.style.display = 'flex';
+    loadQuestion();
+  });
+}
+
+// Calculate final score
+function calculateScore() {
+  score = 0;
+  userAnswers.forEach((answer, index) => {
+    if (answer === quizQuestions[index].correctIndex) {
+      score++;
+    }
+  });
+  
+  // Update high score if needed
+  if (score > highScore) {
+    highScore = score;
+    localStorage.setItem('quizHighScore', highScore);
+    highScoreValueEl.textContent = highScore;
+  }
+  
+  // Display score
+  scoreValueEl.textContent = score;
+  
+  // Display message based on score
+  if (score === quizQuestions.length) {
+    scoreMessageEl.textContent = 'Вітаємо! Ви ідеально знаєте студентську раду! 🎉';
+    scoreMessageEl.style.color = 'var(--success)';
+  } else if (score >= quizQuestions.length * 0.7) {
+    scoreMessageEl.textContent = 'Чудово! Ви добре знаєте студентську раду! 👍';
+    scoreMessageEl.style.color = 'var(--success)';
+  } else if (score >= quizQuestions.length * 0.5) {
+    scoreMessageEl.textContent = 'Непогано, але можна краще! 💪';
+    scoreMessageEl.style.color = 'var(--warning)';
+  } else {
+    scoreMessageEl.textContent = 'Потрібно більше дізнаватися про студраду! 📚';
+    scoreMessageEl.style.color = 'var(--error)';
+  }
+  
+  // Show score container
+  scoreContainerEl.style.display = 'block';
+  submitBtn.style.display = 'none';
+  restartBtn.style.display = 'flex';
+}
+
+// Initialize the game when page loads
+document.addEventListener('DOMContentLoaded', initGame);
+</script>
+</body>
+</html>

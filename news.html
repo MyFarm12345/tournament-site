@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Новини — Студентська рада</title>
+<style>
+:root{
+  --bg1:#ffffff; --bg2:#f8fafc; --accent:#2563eb;
+  --text-primary:#1e293b; --text-secondary:#64748b;
+  --card:#ffffff; --border:#e2e8f0;
+  --success:#10b981; --warning:#f59e0b; --error:#ef4444;
+}
+*{box-sizing:border-box}
+body {
+  margin:0;
+  font-family:Inter, "Segoe UI", Roboto, Arial, system-ui;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+  color:var(--text-primary);
+  background: #ffffff;
+  line-height: 1.6;
+}
+
+/* Improved animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* top bar */
+header{
+  position:sticky; top:0; z-index:60;
+  backdrop-filter: blur(8px);
+  background: rgba(255,255,255,0.95);
+  border-bottom:1px solid var(--border);
+  padding:12px 22px;
+  display:flex; align-items:center; justify-content:space-between;
+  transition: all 0.3s ease;
+}
+header.scrolled {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+.logo{display:flex;gap:12px;align-items:center;font-weight:700;color:#0f172a; text-decoration: none;}
+.logo:hover { opacity: 0.9; }
+.logo .badge{background:var(--accent); width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;box-shadow:0 4px 14px rgba(37, 99, 235, 0.15); transition: all 0.3s ease;}
+.logo .badge:hover { transform: rotate(5deg); }
+nav{display:flex;gap:8px;align-items:center; flex-wrap: wrap;}
+nav button{background:transparent;border:none;color:var(--text-primary);padding:8px 12px;border-radius:8px;font-weight:600;cursor:pointer; transition: all 0.2s ease;}
+nav button:hover{background:rgba(0,0,0,0.05); transform: translateY(-2px);}
+nav button.active{background:var(--accent); color: white;}
+.auth{display:flex;gap:8px;align-items:center}
+.auth button{background:var(--accent); color:#fff;padding:8px 16px;border-radius:10px;border:none;font-weight:700;cursor:pointer; transition: all 0.3s ease;}
+.auth button:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2); }
+.auth .role{background:rgba(0,0,0,0.05); padding:6px 12px;border-radius:999px;color:var(--text-primary);border:1px solid rgba(0,0,0,0.05); font-size: 12px;}
+
+/* container */
+.wrap{max-width:1200px;margin:28px auto;padding:0 20px}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1fr;gap:28px;align-items:center;margin-bottom:28px; animation: fadeIn 0.8s ease;}
+.hero .lead{background:var(--card); padding:32px;border-radius:18px;box-shadow:0 10px 25px rgba(0,0,0,0.05); color:var(--text-primary); border: 1px solid var(--border);}
+h1{font-size:32px;margin:0 0 12px;line-height:1.2;color:#0f172a;}
+.lead p{margin:0;color:var(--text-secondary); line-height: 1.6;}
+.cta{margin-top:22px;display:flex;gap:12px; flex-wrap: wrap;}
+.btn{background:var(--accent); color:white;padding:12px 20px;border-radius:10px;border:none;font-weight:700;cursor:pointer; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 8px;}
+.btn:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(37, 99, 235, 0.2); }
+.btn.secondary{background:#f1f5f9;border:1px solid var(--border);color:var(--text-primary); box-shadow: 0 2px 5px rgba(0,0,0,0.05);}
+.btn.secondary:hover { background: #e2e8f0; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+.btn i { font-size: 16px; }
+
+/* right card */
+.card{background:var(--card); border-radius:14px;padding:22px;color:var(--text-primary); box-shadow:0 8px 20px rgba(0,0,0,0.06); border:1px solid var(--border); transition: all 0.3s ease; margin-bottom: 20px;}
+.card:hover { transform: translateY(-5px); box-shadow: 0 12px 25px rgba(0,0,0,0.1); }
+
+/* small util */
+.muted{color:var(--text-secondary)}
+.row{display:flex;gap:12px;align-items:center; flex-wrap: wrap;}
+.badge-success { background: var(--success); color: white; padding: 4px 8px; border-radius: 999px; font-size: 12px; }
+.badge-warning { background: var(--warning); color: white; padding: 4px 8px; border-radius: 999px; font-size: 12px; }
+.badge-error { background: var(--error); color: white; padding: 4px 8px; border-radius: 999px; font-size: 12px; }
+
+/* footer */
+footer{margin:60px auto 30px; text-align:center;color:var(--text-secondary); padding: 20px; border-top: 1px solid var(--border);}
+
+/* notifications */
+.notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 16px 20px;
+  border-radius: 10px;
+  color: white;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transform: translateX(100vw);
+  transition: transform 0.4s ease;
+}
+.notification.show {
+  transform: translateX(0);
+}
+.notification.success { background: var(--success); }
+.notification.error { background: var(--error); }
+.notification.warning { background: var(--warning); }
+
+/* loader */
+.loader {
+  width: 24px;
+  height: 24px;
+  border: 3px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s ease-in-out infinite;
+  margin: 0 auto;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* loading overlay */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255,255,255,0.9);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Filter buttons */
+.filter-buttons {
+  display: flex;
+  gap: 8px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+.filter-btn {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.filter-btn.active, .filter-btn:hover {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+/* News cards */
+.news-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid var(--border);
+  transition: all 0.3s ease;
+}
+.news-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+}
+.news-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.news-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+  color: var(--text-primary);
+}
+.news-meta {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.news-category {
+  background: #f1f5f9;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+.news-content {
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+.news-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.news-date {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+.news-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* Category management */
+.category-management {
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.category-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 15px 0;
+}
+.category-item {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 8px 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.category-item .delete {
+  color: var(--error);
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Admin section */
+.admin-section {
+  background: var(--accent);
+  color: white;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 25px;
+}
+.admin-section h3 {
+  margin: 0 0 15px 0;
+  color: white;
+}
+
+/* Search bar */
+.search-section {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid var(--border);
+}
+.search-container {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.search-input {
+  flex: 1;
+  min-width: 250px;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #f8fafc;
+  font-size: 14px;
+}
+
+/* responsive */
+@media (max-width:1080px){
+  .hero{grid-template-columns:1fr; padding-bottom:12px}
+  .cards{grid-template-columns:1fr}
+}
+
+@media (max-width:768px){
+  header { flex-direction: column; gap: 15px; padding: 15px; }
+  nav { width: 100%; justify-content: center; }
+  .auth { width: 100%; justify-content: center; }
+  .cta { flex-direction: column; }
+  .hero .lead { padding: 20px; }
+  .card { padding: 18px; }
+  .news-header, .news-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .search-container {
+    flex-direction: column;
+  }
+  .search-input {
+    min-width: 100%;
+  }
+}
+
+@media (max-width:480px){
+  .wrap { padding: 0 15px; }
+  h1 { font-size: 26px; }
+  .btn { width: 100%; justify-content: center; }
+  .news-actions { flex-direction: column; }
+  .news-actions .btn { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<!-- Loading overlay -->
+<div id="loadingOverlay" class="loading-overlay">
+  <div class="loader"></div>
+</div>
+
+<header>
+<a href="https://kre.dp.ua" style="display:flex; align-items:center; text-decoration:none;">
+  <div style="width:40px; height:40px; background-color:#2563eb; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:bold; border-radius:6px; margin-right:10px;">
+    SR
+  </div>
+  <div>
+    <div style="font-size:14px; color:#334155; font-weight:600;">Студентська рада</div>
+    <div style="font-size:11px; color:#64748b;">Коледж — офіційний сайт ДФКР</div>
+  </div>
+</a>
+  <nav>
+    <a href="Home.html"><button id="nav-home">Головна</button></a>
+    <a href="info.html"><button id="nav-info">Про раду</button></a>
+    <a href="command.html"><button id="nav-team">Команда</button></a>
+    <a href="news.html"><button id="nav-news" class="active">Новини</button></a>
+    <a href="project.html"><button id="nav-projects">Проєкти</button></a>
+    <a href="event.html"><button id="nav-events">Події</button></a>
+  </nav>
+  <div class="auth" id="authArea">
+    <!-- auth UI inserted here -->
+  </div>
+</header>
+
+<main class="wrap">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="lead">
+      <h1>Останні <span style="color:#2563eb">новини</span></h1>
+      <p style="margin-top:10px">Актуальні події, оголошення та важливі новини студентського життя. Будьте в курсі всіх подій!</p>
+      <div class="cta">
+        <button class="btn" id="addNewsBtn" style="display:none;" onclick="openCreateNews()"><i>➕</i> Додати новину</button>
+        <button class="btn secondary" onclick="filterNews('all')"><i>🔄</i> Всі новини</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Search section -->
+  <div class="search-section">
+    <div class="search-container">
+      <input 
+        id="searchInput" 
+        class="search-input" 
+        placeholder="Пошук новин за заголовком або змістом..." 
+        oninput="searchNews()"
+      >
+      <button class="btn secondary" onclick="clearSearch()">Очистити</button>
+    </div>
+  </div>
+
+  <!-- Category management (admin only) -->
+  <div id="categoryManagement" class="category-management" style="display: none;">
+    <h3>Керування категоріями</h3>
+    <div class="row">
+      <input id="newCategoryInput" placeholder="Нова категорія" style="padding:10px;border:1px solid var(--border);border-radius:8px;flex:1">
+      <button class="btn" onclick="addCategory()">Додати категорію</button>
+    </div>
+    <div class="category-list" id="categoryList"></div>
+  </div>
+
+  <!-- Filter buttons -->
+  <div class="filter-buttons" id="filterButtons">
+    <button class="filter-btn active" data-filter="all" onclick="filterNews('all')">Всі</button>
+    <!-- Categories will be dynamically added here -->
+  </div>
+
+  <!-- News list -->
+  <div id="newsList"></div>
+
+</main>
+
+<footer>
+  <div style="opacity:0.9;color:var(--text-secondary); margin-bottom: 10px;">© 2025 Студентська рада — зроблено з ❤️ для студентів</div>
+  <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+    <a href="privacy.html" style="color: var(--accent); text-decoration: none;">Політика конфіденційності</a>
+    <a href="#" style="color: var(--accent); text-decoration: none;">Допомога</a>
+  </div>
+</footer>
+
+<!-- MODALS (hidden containers) -->
+<div id="modal" style="position:fixed;left:0;top:0;width:100%;height:100%;display:none;align-items:center;justify-content:center;background:rgba(2,6,23,0.6);z-index:120; padding: 20px;">
+  <div id="modalBox" style="width:720px;max-width:92%;background:#fff;border-radius:16px;padding:24px;max-height:90vh;overflow-y:auto;"></div>
+</div>
+
+<!-- NOTIFICATION CONTAINER -->
+<div id="notificationContainer"></div>
+
+<!-- Supabase JS SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+/* =========================
+   Supabase Configuration
+   ========================= */
+
+const SUPABASE_URL = 'https://xyhnzxyhkxijxahltcwl.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh5aG56eHloa3hpanhhaGx0Y3dsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgzMDQwODksImV4cCI6MjA3Mzg4MDA4OX0.3rCiET2xh7hY3bya09tmCo1L6Lc8ucM5UVF8VUbz1Oo';
+
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+/* =========================
+   Database Operations
+   ========================= */
+
+
+function showLoading() {
+  document.getElementById('loadingOverlay').style.display = 'flex';
+}
+
+function hideLoading() {
+  document.getElementById('loadingOverlay').style.display = 'none';
+}
+
+
+async function checkSupabaseConnection() {
+  try {
+    const { data, error } = await supabase.from('news').select('count', { count: 'exact' });
+    if (error) throw error;
+    return true;
+  } catch (error) {
+    console.error('Supabase connection error:', error);
+    showNotification('Помилка підключення до бази даних', 'error');
+    return false;
+  }
+}
+
+
+async function loadNews() {
+  try {
+    const { data, error } = await supabase
+      .from('news')
+      .select('*')
+      .order('created_at', { ascending: false });
+    
+    if (error) throw error;
+    return data || [];
+  } catch (error) {
+    console.error('Error loading news:', error);
+    showNotification('Помилка завантаження новин', 'error');
+    return [];
+  }
+}
+
+
+async function saveNews(newsData) {
+  try {
+    const { data, error } = await supabase
+      .from('news')
+      .insert([{
+        title: newsData.title,
+        content: newsData.content,
+        category: newsData.category || 'загальне',
+        date: newsData.date,
+        created_at: new Date().toISOString()
+      }])
+      .select();
+    
+    if (error) throw error;
+    return data[0];
+  } catch (error) {
+    console.error('Error saving news:', error);
+    showNotification('Помилка збереження новини', 'error');
+    return null;
+  }
+}
+
+
+async function updateNews(id, newsData) {
+  try {
+    const { data, error } = await supabase
+      .from('news')
+      .update({
+        title: newsData.title,
+        content: newsData.content,
+        category: newsData.category,
+        date: newsData.date
+      })
+      .eq('id', id)
+      .select();
+    
+    if (error) throw error;
+    return data[0];
+  } catch (error) {
+    console.error('Error updating news:', error);
+    showNotification('Помилка оновлення новини', 'error');
+    return null;
+  }
+}
+
+
+async function deleteNews(id) {
+  try {
+    const { error } = await supabase
+      .from('news')
+      .delete()
+      .eq('id', id);
+    
+    if (error) throw error;
+    return true;
+  } catch (error) {
+    console.error('Error deleting news:', error);
+    showNotification('Помилка видалення новини', 'error');
+    return false;
+  }
+}
+
+
+async function loadCategories() {
+  try {
+    const { data, error } = await supabase
+      .from('news_categories')
+      .select('*')
+      .order('name', { ascending: true });
+    
+    if (error) throw error;
+    return data ? data.map(cat => cat.name) : [];
+  } catch (error) {
+    console.error('Error loading categories:', error);
+    
+    return ['події', 'оголошення', 'досягнення', 'спорт'];
+  }
+}
+
+
+async function saveCategory(categoryName) {
+  try {
+    const { data, error } = await supabase
+      .from('news_categories')
+      .insert([{ name: categoryName }])
+      .select();
+    
+    if (error) throw error;
+    return data[0];
+  } catch (error) {
+    console.error('Error saving category:', error);
+    showNotification('Помилка збереження категорії', 'error');
+    return null;
+  }
+}
+
+
+async function deleteCategoryFromDb(categoryName) {
+  try {
+    const { error } = await supabase
+      .from('news_categories')
+      .delete()
+      .eq('name', categoryName);
+    
+    if (error) throw error;
+    return true;
+  } catch (error) {
+    console.error('Error deleting category:', error);
+    showNotification('Помилка видалення категорії', 'error');
+    return false;
+  }
+}
+
+/* =========================
+   Global Variables
+   ========================= */
+let NEWS = [];
+let CATEGORIES = [];
+let currentUser = null;
+let currentFilter = 'all';
+let searchQuery = '';
+
+/* =========================
+   Auth system with Supabase Auth
+   ========================= */
+
+const ADMIN_UIDS = [
+  '4495aa8c-46fe-46de-8246-20cce7be22a4', 
+  '375bd9f4-2550-4055-8011-9ac386596898',
+  'b25d0c73-dd74-4dc5-9a32-77ad1e526db3' 
+];
+
+async function initAuth() {
+  const { data: { session } } = await supabase.auth.getSession();
+  if (session) {
+    await setCurrentUser(session.user);
+  }
+  
+  supabase.auth.onAuthStateChange((event, session) => {
+    if (event === 'SIGNED_IN' && session) {
+      setCurrentUser(session.user);
+      renderAll();
+    } else if (event === 'SIGNED_OUT') {
+      currentUser = null;
+      renderAll();
+    }
+  });
+}
+
+async function setCurrentUser(user) {
+  const isAdmin = ADMIN_UIDS.includes(user.id);
+  currentUser = {
+    id: user.id,
+    email: user.email,
+    name: user.email.split('@')[0],
+    role: isAdmin ? 'admin' : 'user'
+  };
+}
+
+function renderAuth() {
+  const el = document.getElementById('authArea');
+  el.innerHTML = '';
+  
+  if (currentUser) {
+    const roleSpan = document.createElement('div');
+    roleSpan.className = 'role';
+    roleSpan.style.marginRight = '8px';
+    roleSpan.textContent = currentUser.role.toUpperCase();
+    
+    const name = document.createElement('div');
+    name.style.color = '#334155';
+    name.style.fontWeight = '700';
+    name.style.marginRight = '8px';
+    name.textContent = currentUser.email || currentUser.name;
+    
+    const btnOut = document.createElement('button');
+    btnOut.textContent = 'Вийти';
+    btnOut.onclick = logout;
+    
+    el.appendChild(name);
+    el.appendChild(roleSpan);
+    el.appendChild(btnOut);
+  } else {
+    const btn = document.createElement('button');
+    btn.textContent = 'Увійти';
+    btn.onclick = showLogin;
+    el.appendChild(btn);
+  }
+  
+  toggleAdminButtons();
+}
+
+function showLogin() {
+  modalOpen(`<h3>Вхід</h3>
+    <div style="display:flex;flex-direction:column;gap:12px;margin-top:12px">
+      <input id="loginEmail" type="email" placeholder="Email" style="padding:12px;border:1px solid var(--border);border-radius:8px">
+      <input id="loginPass" type="password" placeholder="Пароль" style="padding:12px;border:1px solid var(--border);border-radius:8px">
+      <div style="display:flex;gap:8px;justify-content:flex-end">
+        <button onclick="modalClose()" class="btn secondary">Відмінити</button>
+        <button class="btn" onclick="doLogin()">Увійти</button>
+      </div>
+    </div>`, 480);
+  document.getElementById('loginEmail').focus();
+}
+
+async function doLogin() {
+  const email = (document.getElementById('loginEmail').value || '').trim();
+  const password = (document.getElementById('loginPass').value || '').trim();
+  
+  if (!email || !password) {
+    showNotification('Введіть email і пароль', 'error');
+    return;
+  }
+  
+  showLoading();
+  
+  try {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password
+    });
+    
+    if (error) throw error;
+    
+    await setCurrentUser(data.user);
+    modalClose();
+    
+    console.log('User logged in:', currentUser);
+    
+    showNotification(`Вітаємо! Ви увійшли як ${currentUser.role === 'admin' ? 'адміністратор' : 'користувач'}`, 'success');
+    
+    
+    await renderAll();
+    
+  } catch (error) {
+    showNotification('Помилка входу: ' + error.message, 'error');
+  } finally {
+    hideLoading();
+  }
+}
+
+async function logout() {
+  showLoading();
+  try {
+    await supabase.auth.signOut();
+    currentUser = null;
+    showNotification('Ви вийшли з системи', 'success');
+    renderAll();
+  } catch (error) {
+    showNotification('Помилка виходу: ' + error.message, 'error');
+  } finally {
+    hideLoading();
+  }
+}
+
+function toggleAdminButtons() {
+  const isAdmin = currentUser && currentUser.role === 'admin';
+  
+  // Головна кнопка "Додати новину"
+  const addNewsBtn = document.getElementById('addNewsBtn');
+  const categoryManagement = document.getElementById('categoryManagement');
+  
+  if (addNewsBtn) {
+    addNewsBtn.style.display = isAdmin ? 'inline-flex' : 'none';
+  }
+  
+  if (categoryManagement) {
+    categoryManagement.style.display = isAdmin ? 'block' : 'none';
+  }
+  
+  if (isAdmin) {
+    console.log('Admin mode enabled - showing admin controls');
+  }
+}
+
+
+/* =========================
+   Modal Helpers
+   ========================= */
+function modalOpen(html, width = 760) {
+  const modal = document.getElementById('modal');
+  const box = document.getElementById('modalBox');
+  box.style.width = width + 'px';
+  box.innerHTML = html;
+  modal.style.display = 'flex';
+}
+
+function modalClose() {
+  document.getElementById('modal').style.display = 'none';
+}
+
+/* =========================
+   Notification System
+   ========================= */
+function showNotification(message, type = 'success') {
+  const container = document.getElementById('notificationContainer');
+  const notification = document.createElement('div');
+  notification.className = `notification ${type}`;
+  notification.innerHTML = `<div>${message}</div>`;
+  container.appendChild(notification);
+  
+  
+  setTimeout(() => {
+    notification.classList.add('show');
+  }, 10);
+  
+ 
+  setTimeout(() => {
+    notification.classList.remove('show');
+    setTimeout(() => {
+      if (container.contains(notification)) {
+        container.removeChild(notification);
+      }
+    }, 400);
+  }, 3000);
+}
+
+/* =========================
+   Categories Management
+   ========================= */
+async function renderCategories() {
+  try {
+    CATEGORIES = await loadCategories();
+    
+  
+    const filterContainer = document.getElementById('filterButtons');
+    
+    while (filterContainer.children.length > 1) {
+      filterContainer.removeChild(filterContainer.lastChild);
+    }
+    
+   
+    CATEGORIES.forEach(category => {
+      const button = document.createElement('button');
+      button.className = 'filter-btn';
+      button.textContent = category;
+      button.setAttribute('data-filter', category);
+      button.onclick = () => filterNews(category);
+      filterContainer.appendChild(button);
+    });
+    
+    
+    const categoryList = document.getElementById('categoryList');
+    if (categoryList) {
+      categoryList.innerHTML = '';
+      
+      CATEGORIES.forEach(category => {
+        const categoryItem = document.createElement('div');
+        categoryItem.className = 'category-item';
+        categoryItem.innerHTML = `
+          ${escapeHtml(category)}
+          <span class="delete" onclick="deleteCategory('${escapeHtmlAttr(category)}')">×</span>
+        `;
+        categoryList.appendChild(categoryItem);
+      });
+    }
+  } catch (error) {
+    console.error('Error rendering categories:', error);
+  }
+}
+
+async function addCategory() {
+  if (!currentUser || currentUser.role !== 'admin') {
+    showNotification('Тільки адміністратор може додавати категорії', 'error');
+    return;
+  }
+  
+  const newCategory = document.getElementById('newCategoryInput').value.trim();
+  if (!newCategory) {
+    showNotification('Введіть назву категорії', 'error');
+    return;
+  }
+  
+  if (CATEGORIES.includes(newCategory)) {
+    showNotification('Ця категорія вже існує', 'error');
+    return;
+  }
+  
+  showLoading();
+  const saved = await saveCategory(newCategory);
+  hideLoading();
+  
+  if (saved) {
+    document.getElementById('newCategoryInput').value = '';
+    showNotification('Категорію додано', 'success');
+    renderAll();
+  }
+}
+
+async function deleteCategory(category) {
+  if (!currentUser || currentUser.role !== 'admin') {
+    showNotification('Тільки адміністратор може видаляти категорії', 'error');
+    return;
+  }
+  
+  
+  const isUsed = NEWS.some(news => news.category === category);
+  if (isUsed) {
+    showNotification('Не можна видалити категорію, яка використовується в новинах', 'error');
+    return;
+  }
+  
+  if (confirm(`Видалити категорію "${category}"?`)) {
+    showLoading();
+    const deleted = await deleteCategoryFromDb(category);
+    hideLoading();
+    
+    if (deleted) {
+      showNotification('Категорію видалено', 'success');
+      renderAll();
+    }
+  }
+}
+
+/* =========================
+   News CRUD + UI
+   ========================= */
+async function renderNews() {
+  const container = document.getElementById('newsList');
+  container.innerHTML = '<div class="loader"></div>';
+  
+  try {
+    NEWS = await loadNews();
+    container.innerHTML = '';
+    
+    let filteredNews = NEWS;
+    
+
+    if (currentFilter !== 'all') {
+      filteredNews = filteredNews.filter(n => n.category === currentFilter);
+    }
+    
+   
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      filteredNews = filteredNews.filter(n => 
+        n.title.toLowerCase().includes(query) || 
+        n.content.toLowerCase().includes(query)
+      );
+    }
+    
+    if (filteredNews.length === 0) {
+      container.innerHTML = '<div style="text-align: center; padding: 40px; color: var(--text-secondary)">Новини не знайдені</div>';
+      return;
+    }
+    
+    filteredNews.forEach(news => {
+      const newsEl = document.createElement('div');
+      newsEl.className = 'news-card';
+      
+      newsEl.innerHTML = `
+        <div class="news-header">
+          <h3 class="news-title">${escapeHtml(news.title)}</h3>
+          <div class="news-meta">
+            <span class="news-category">${escapeHtml(news.category || 'загальне')}</span>
+          </div>
+        </div>
+        <div class="news-content">
+          ${escapeHtml(shortenText(news.content, 200))}
+        </div>
+        <div class="news-footer">
+          <div class="news-date">${news.date || formatDate(news.created_at)}</div>
+          <div class="news-actions" id="news-actions-${news.id}">
+            <button class="btn secondary" onclick="viewNews(${news.id})">Читати більше</button>
+          </div>
+        </div>
+      `;
+      
+      if (currentUser && currentUser.role === 'admin') {
+        const actions = newsEl.querySelector(`#news-actions-${news.id}`);
+        
+        const editBtn = document.createElement('button');
+        editBtn.className = 'btn secondary';
+        editBtn.innerHTML = '<i>✏️</i> Редагувати';
+        editBtn.onclick = () => editNews(news.id);
+        
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'btn';
+        deleteBtn.innerHTML = '<i>🗑️</i> Видалити';
+        deleteBtn.onclick = () => confirmDeleteNews(news.id);
+        
+        actions.appendChild(editBtn);
+        actions.appendChild(deleteBtn);
+      }
+      
+      container.appendChild(newsEl);
+    });
+  } catch (error) {
+    container.innerHTML = '<div style="text-align: center; padding: 40px; color: var(--error)">Помилка завантаження новин</div>';
+  }
+}
+
+function shortenText(text, maxLength) {
+  if (!text) return '';
+  if (text.length <= maxLength) return text;
+  return text.substr(0, maxLength) + '...';
+}
+
+function formatDate(dateString) {
+  if (!dateString) return '';
+  const date = new Date(dateString);
+  return date.toLocaleDateString('uk-UA');
+}
+
+function filterNews(category) {
+
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.classList.remove('active');
+    if (btn.getAttribute('data-filter') === category || (category === 'all' && btn.textContent === 'Всі')) {
+      btn.classList.add('active');
+    }
+  });
+  
+  currentFilter = category;
+  renderNews();
+}
+
+function searchNews() {
+  searchQuery = document.getElementById('searchInput').value.trim();
+  renderNews();
+}
+
+function clearSearch() {
+  document.getElementById('searchInput').value = '';
+  searchQuery = '';
+  renderNews();
+}
+
+function viewNews(id) {
+  const news = NEWS.find(n => n.id === id);
+  if (!news) return;
+  
+  modalOpen(`
+    <h2>${escapeHtml(news.title)}</h2>
+    <div class="row" style="margin-bottom: 20px;">
+      <span class="news-category">${escapeHtml(news.category || 'загальне')}</span>
+      <div class="muted">Дата: ${news.date || formatDate(news.created_at)}</div>
+    </div>
+    <div style="line-height: 1.6; margin-bottom: 20px; white-space: pre-line;">
+      ${escapeHtml(news.content)}
+    </div>
+    <div style="display:flex;justify-content:flex-end">
+      <button class="btn secondary" onclick="modalClose()">Закрити</button>
+    </div>
+  `, 640);
+}
+
+function openCreateNews() {
+  if (!currentUser || currentUser.role !== 'admin') {
+    showNotification('Тільки адміністратор може додавати новини', 'error'); 
+    return; 
+  }
+  
+
+  const categoryOptions = CATEGORIES.map(cat => 
+    `<option value="${escapeHtmlAttr(cat)}">${escapeHtml(cat)}</option>`
+  ).join('');
+  
+  const currentDate = new Date().toLocaleDateString('uk-UA');
+  
+  modalOpen(`
+    <h3>Нова новина</h3>
+    <div style="display:flex;flex-direction:column;gap:12px;margin-top:12px">
+      <input id="nTitle" placeholder="Заголовок новини" style="padding:12px;border:1px solid var(--border);border-radius:8px">
+      <select id="nCategory" style="padding:12px;border:1px solid var(--border);border-radius:8px">
+        ${categoryOptions}
+      </select>
+      <input id="nDate" value="${currentDate}" style="padding:12px;border:1px solid var(--border);border-radius:8px">
+      <textarea id="nContent" placeholder="Зміст новини..." style="height:200px;padding:12px;border:1px solid var(--border);border-radius:8px; resize: vertical;"></textarea>
+      <div style="display:flex;gap:8px;justify-content:flex-end">
+        <button class="btn secondary" onclick="modalClose()">Відмінити</button>
+        <button class="btn" onclick="createNews()">Опублікувати</button>
+      </div>
+    </div>
+  `, 640);
+}
+
+async function createNews() {
+  const title = document.getElementById('nTitle').value.trim();
+  const category = document.getElementById('nCategory').value;
+  const date = document.getElementById('nDate').value.trim();
+  const content = document.getElementById('nContent').value.trim();
+  
+  if (!title || !content) {
+    showNotification('Заповніть заголовок та зміст новини', 'error'); 
+    return;
+  }
+  
+  showLoading();
+  const saved = await saveNews({ title, category, date, content });
+  hideLoading();
+  
+  if (saved) {
+    modalClose();
+    showNotification('Новину додано успішно!', 'success');
+    renderAll();
+  }
+}
+
+function editNews(id) {
+  const news = NEWS.find(n => n.id === id);
+  if (!news) return;
+  
+
+  const categoryOptions = CATEGORIES.map(cat => 
+    `<option value="${escapeHtmlAttr(cat)}" ${(news.category || 'загальне') === cat ? 'selected' : ''}>${escapeHtml(cat)}</option>`
+  ).join('');
+  
+  modalOpen(`
+    <h3>Редагування новини</h3>
+    <div style="display:flex;flex-direction:column;gap:12px;margin-top:12px">
+      <input id="eTitle" value="${escapeHtmlAttr(news.title)}" style="padding:12px;border:1px solid var(--border);border-radius:8px">
+      <select id="eCategory" style="padding:12px;border:1px solid var(--border);border-radius:8px">
+        ${categoryOptions}
+      </select>
+      <input id="eDate" value="${escapeHtmlAttr(news.date || formatDate(news.created_at))}" style="padding:12px;border:1px solid var(--border);border-radius:8px">
+      <textarea id="eContent" style="height:200px;padding:12px;border:1px solid var(--border);border-radius:8px; resize: vertical;">${escapeHtmlAttr(news.content)}</textarea>
+      <div style="display:flex;gap:8px;justify-content:flex-end">
+        <button class="btn secondary" onclick="modalClose()">Відмінити</button>
+        <button class="btn" onclick="updateNewsItem(${news.id})">Оновити</button>
+      </div>
+    </div>
+  `, 640);
+}
+
+async function updateNewsItem(id) {
+  const title = document.getElementById('eTitle').value.trim();
+  const category = document.getElementById('eCategory').value;
+  const date = document.getElementById('eDate').value.trim();
+  const content = document.getElementById('eContent').value.trim();
+  
+  if (!title || !content) {
+    showNotification('Заповніть заголовок та зміст новини', 'error'); 
+    return;
+  }
+  
+  showLoading();
+  const updated = await updateNews(id, { title, category, date, content });
+  hideLoading();
+  
+  if (updated) {
+    modalClose();
+    showNotification('Новину оновлено успішно!', 'success');
+    renderAll();
+  }
+}
+
+async function confirmDeleteNews(id) {
+  if (!confirm('Видалити новину?')) return;
+  
+  showLoading();
+  const deleted = await deleteNews(id);
+  hideLoading();
+  
+  if (deleted) {
+    showNotification('Новину видалено', 'success');
+    renderAll();
+  }
+}
+
+/* =========================
+   Admin Functions
+   ========================= */
+async function exportNewsData() {
+  if (!currentUser || currentUser.role !== 'admin') {
+    showNotification('Тільки адміністратор може експортувати дані', 'error'); 
+    return; 
+  }
+  
+  try {
+    showLoading();
+    const data = {
+      news: await loadNews(),
+      categories: await loadCategories(),
+      exportDate: new Date().toISOString()
+    };
+    
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `news-export-${Date.now()}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    
+    hideLoading();
+    showNotification('Дані експортовано', 'success');
+  } catch (error) {
+    hideLoading();
+    showNotification('Помилка експорту', 'error');
+  }
+}
+
+function importNewsData() {
+  if (!currentUser || currentUser.role !== 'admin') {
+    showNotification('Тільки адміністратор може імпортувати дані', 'error'); 
+    return; 
+  }
+  
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = '.json';
+  
+  input.onchange = e => { 
+    const file = e.target.files[0]; 
+    if (!file) return;
+    
+    const reader = new FileReader();
+    reader.readAsText(file, 'UTF-8');
+    
+    reader.onload = async readerEvent => {
+      const content = readerEvent.target.result;
+      try {
+        const data = JSON.parse(content);
+        if (data.news && Array.isArray(data.news)) {
+          showLoading();
+          
+        
+          if (data.categories && Array.isArray(data.categories)) {
+            for (const category of data.categories) {
+              await saveCategory(category);
+            }
+          }
+          
+         
+          for (const newsItem of data.news) {
+            await saveNews({
+              title: newsItem.title,
+              content: newsItem.content,
+              category: newsItem.category || 'загальне',
+              date: newsItem.date
+            });
+          }
+          
+          hideLoading();
+          showNotification('Дані імпортовано', 'success');
+          renderAll();
+        } else {
+          showNotification('Невірний формат файлу', 'error');
+        }
+      } catch (error) {
+        showNotification('Помилка при читанні файлу', 'error');
+      }
+    };
+  };
+  
+  input.click();
+}
+
+async function seedNewsData() {
+  if (!currentUser || currentUser.role !== 'admin') {
+    showNotification('Тільки адміністратор може додавати тестові дані', 'error');
+    return;
+  }
+  
+  if (!confirm('Додати тестові новини та категорії?')) return;
+  
+  const testCategories = ['події', 'оголошення', 'досягнення', 'спорт'];
+  const testNews = [
+    {
+      title: 'Вибори голови студентської ради',
+      category: 'події',
+      date: '07.11.2024',
+      content: 'У стінах нашого закладу відбулася значуща подія – виборча конференція. Головою обрано Кочаряна К.С. За результатами голосування, він отримав переконливу більшість голосів. Вітаємо нового голову та бажаємо успіхів у роботі!'
+    },
+    {
+      title: 'Звітно-виборча конференція',
+      category: 'події',
+      date: '26.09.2024',
+      content: 'Обрано новий склад студентської ради. До ради увійшли активні та ініціативні студенти, які готові працювати для покращення студентського життя. Усі кандидати представили свої програми та відповіли на запитання присутніх.'
+    },
+    {
+      title: 'Оголошення щодо навчального процесу',
+      category: 'оголошення',
+      date: '15.03.2025',
+      content: 'Повідомляємо про зміни в розкладі занять на наступний тиждень. Заняття з фізики переносяться з вівторка на середу. Детальніший розклад можна переглянути на інформаційних стендах або на сайті коледжу.'
+    }
+  ];
+  
+  try {
+    showLoading();
+    
+  
+    for (const category of testCategories) {
+      await saveCategory(category);
+    }
+    
+ 
+    for (const news of testNews) {
+      await saveNews(news);
+    }
+    
+    hideLoading();
+    showNotification('Тестові дані додано', 'success');
+    renderAll();
+  } catch (error) {
+    hideLoading();
+    showNotification('Помилка додавання тестових даних', 'error');
+  }
+}
+
+/* =========================
+   Utilities
+   ========================= */
+function escapeHtml(s) { 
+  if (!s) return '';
+  return (s + '').replace(/[&<>"']/g, function(m) { 
+    return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]); 
+  }); 
+}
+
+function escapeHtmlAttr(s) { 
+  return escapeHtml(s).replace(/"/g, '&quot;'); 
+}
+
+/* =========================
+   Scroll effect for header
+   ========================= */
+window.addEventListener('scroll', function() {
+  const header = document.querySelector('header');
+  if (window.scrollY > 50) {
+    header.classList.add('scrolled');
+  } else {
+    header.classList.remove('scrolled');
+  }
+});
+
+/* =========================
+   Initialize and render all
+   ========================= */
+async function renderAll() {
+  renderAuth();
+  await Promise.all([
+    renderCategories(),
+    renderNews()
+  ]);
+}
+
+/* =========================
+   Initialize on load
+   ========================= */
+document.addEventListener('DOMContentLoaded', async function() {
+  showLoading();
+  
+  const isConnected = await checkSupabaseConnection();
+  
+  if (isConnected) {
+    await renderAll();
+  } else {
+    showNotification('Помилка підключення до бази даних.', 'error');
+  }
+  
+  hideLoading();
+});
+</script>
+</body>
+</html>
